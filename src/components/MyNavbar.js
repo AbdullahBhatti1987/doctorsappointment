@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import SelectOption from "./SelectOption";
-import { cities, doctors, doctorsData, specialty } from "@/lib/content";
 
 export default function MyNavbar() {
   return (
@@ -13,10 +11,7 @@ export default function MyNavbar() {
     >
       <div className="w-10/12 flex py-4 flex-row justify-between items-center">
         <div className="w-1/4 flex justify-center items-center ">
-          <Link
-            className=""
-            href={"/"}
-          >
+          <Link className="" href={"/"}>
             <Image
               width={100}
               height={50}
@@ -66,20 +61,6 @@ export default function MyNavbar() {
           >
             Contact Us
           </Link>
-        </div>
-      </div>
-      <div className="w-10/12 h-20 flex flex-row gap-4 justify-center ">
-        <div className="w-1/4 flex justify-center items-center">
-          <h1 className="text-2xl font-bold text-blue-900">Find a Doctor</h1>
-        </div>
-        <div className="w-1/4 flex justify-center items-center">
-          <SelectOption array={specialty} placeholder={"Select a specialty"} />
-        </div>
-        <div className="w-1/4 flex justify-center items-center">
-          <SelectOption array={cities} placeholder={"Location"} />
-        </div>
-        <div className="w-1/4 flex justify-center items-center">
-          <SelectOption array={doctors} placeholder={"Doctor"} />
         </div>
       </div>
     </div>
