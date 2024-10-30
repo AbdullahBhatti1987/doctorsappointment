@@ -73,10 +73,10 @@ export default function MyNavbar() {
           <h1 className="text-2xl font-bold text-blue-900">Find a Doctor</h1>
         </div>
         <div className="w-1/4 flex justify-center items-center">
-          <SelectOption array={doctorsData.categories} placeholder={"Select a specialty"} />
+          <SelectOption array={specialty} placeholder={"Select a specialty"} />
         </div>
         <div className="w-1/4 flex justify-center items-center">
-          <SelectOption array={doctorsData.categories.locations} placeholder={"Location"} />
+          <SelectOption array={cities} placeholder={"Location"} />
         </div>
         <div className="w-1/4 flex justify-center items-center">
           <SelectOption array={doctors} placeholder={"Doctor"} />
