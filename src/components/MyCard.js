@@ -7,7 +7,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { doctorsData } from "@/lib/content";
-import Image from "next/image";
+
 
 export default function MyCard(  ) {
   return (
@@ -16,13 +16,7 @@ export default function MyCard(  ) {
         <Card
           key={data.id}
           className="relative shadow-md hover:shadow-blue-300 hover:bg-yellow-50 active:bg-yellow-100 "
-        >
-          {/* <Image
-            width="2/2"
-            height="1/2"
-            src={data.imageSrc}
-            alt={data.name}
-          /> */}
+        >        
           <CardHeader className="mb-0 pb-2">
             <CardTitle>{data.name}</CardTitle>
             <CardDescription>{data.degree}</CardDescription>
