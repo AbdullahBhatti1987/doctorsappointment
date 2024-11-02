@@ -6,13 +6,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { doctorsData } from "@/lib/content";
 
 
-export default function MyCard(  ) {
+
+export default function MyCard({array}) {
   return (
     <div className="grid grid-cols-4 gap-4">
-      {doctorsData.map((data) => (
+      {array.map((data) => (
         <Card
           key={data.id}
           className="relative shadow-md hover:shadow-blue-300 hover:bg-yellow-50 active:bg-yellow-100 "

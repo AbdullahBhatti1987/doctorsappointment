@@ -2,12 +2,16 @@
 import { category, cities, doctorsData } from "@/lib/content";
 import SelectOption from "./SelectOption";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
-export default function DoctorFinder() {
+export default function DoctorFinder(  ) {
   const [selectCategory, setSelectCategory] = useState("All");
   const [selectLocation, setSelectLocation] = useState("All");
   const [selectedDoctor, setSelectedDoctor] = useState("All");
 
+  const searchParams = useSearchParams();
+
+  
   useEffect(()=>{
     console.log("selectCategory =>", selectCategory)
     console.log("selectLocation =>", selectLocation)
