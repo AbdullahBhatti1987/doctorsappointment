@@ -12,10 +12,6 @@ export default function DoctorFinder() {
     console.log("selectCategory =>", selectCategory)
     console.log("selectLocation =>", selectLocation)
     console.log("selectedDoctors =>", selectedDoctor)
-
-    // console.log("doctorsCities =>", doctorsCities);
-    // setSelectLocation(doctorsCities);
-
   },[selectCategory, selectLocation])
 
   const HandleCategory = (value) => {
@@ -23,7 +19,6 @@ export default function DoctorFinder() {
 
     const doctors = doctorsData.filter((data) => data.category === value);
     setSelectedDoctor(doctors);
-    console.log("Doctors =>", doctors);
 
     let uniqueCities = [...new Set(doctors.map((doctor) => doctor.city))];
     let uniqueCitiesObject = uniqueCities.map((city) => {
@@ -39,6 +34,24 @@ export default function DoctorFinder() {
 
   const HandleLocation = (value) => {
     setSelectLocation(value);
+      
+    const doctors = selectCategory === "All" ? doctorsData.filter((data) => data.city === value): 
+      selectedDoctor.filter((data) => data.city === value)
+    
+    setSelectedDoctor(doctors);
+
+    let uniqueCities = [...new Set(doctors.map((doctor) => doctor.city))];
+    let uniqueCitiesObject = uniqueCities.map((city) => {
+      const doctorInCity = doctors.find((doctor) => doctor.city === city);
+      return {
+        id: doctorInCity ? doctorInCity.id : null,
+        name: city,
+      };
+    });
+
+    setSelectLocation(uniqueCitiesObject);
+
+
     
   };
 
