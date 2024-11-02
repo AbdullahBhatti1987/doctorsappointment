@@ -6,23 +6,41 @@ import { useEffect, useState } from "react";
 export default function DoctorFinder() {
   const [selectCategory, setSelectCategory] = useState("All");
   const [selectLocation, setSelectLocation] = useState("All");
-  const [selectedDoctor, setSelectedDoctor] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [selectedDoctor, setSelectedDoctor] = useState("All");
 
-  const HandleCategory = (e) => {
-    setSelectCategory(e.target.value);
+  useEffect(()=>{
+    console.log("selectCategory =>", selectCategory)
+    console.log("selectLocation =>", selectLocation)
+    console.log("selectedDoctors =>", selectedDoctor)
+
+    // console.log("doctorsCities =>", doctorsCities);
+    // setSelectLocation(doctorsCities);
+
+  },[selectCategory, selectLocation])
+
+  const HandleCategory = (value) => {
+    setSelectCategory(value);
+
+    const doctors = doctorsData.filter((data) => data.category === value);
+    setSelectedDoctor(doctors);
+    console.log("Doctors =>", doctors);
+
+    let uniqueCities = [...new Set(doctors.map((doctor) => doctor.city))];
+    let uniqueCitiesObject = uniqueCities.map((city) => {
+      const doctorInCity = doctors.find((doctor) => doctor.city === city);
+      return {
+        id: doctorInCity ? doctorInCity.id : null,
+        name: city,
+      };
+    });
+
+    setSelectLocation(uniqueCitiesObject);
   };
 
-  useEffect(() => {
-    if (selectCategory === "All") {
-      setSelectedDoctor(doctorsData); // Agar "All" select kiya gaya hai, toh sab doctors dikhayein
-    } else {
-      const filteredDoctors = doctorsData.filter(
-        (data) => data.category === selectCategory
-      );
-      setSelectedDoctor(filteredDoctors); // Selected category ke according doctors ko filter karein
-    }
-  }, [selectCategory]);
+  const HandleLocation = (value) => {
+    setSelectLocation(value);
+    
+  };
 
   return (
     <div className="w-10/12 mx-auto py-4 flex flex-row gap-4 justify-center">
@@ -32,22 +50,22 @@ export default function DoctorFinder() {
       <div className="w-1/4 flex justify-center items-center">
         <SelectOption
           array={category}
-          placeholder={"Find Category"}
+          placeholder="Find Category"
           onChange={HandleCategory}
         />
       </div>
       <div className="w-1/4 flex justify-center items-center">
         <SelectOption
-          array={cities}
-          placeholder={"Find Location"}
-          onChange={(e) => setSelectLocation(e.target.value)}
+          array={selectLocation === "All" ? cities : selectLocation}
+          placeholder="Find Location"
+          onChange={HandleLocation}
         />
       </div>
       <div className="w-1/4 flex justify-center items-center">
         <SelectOption
-          array={selectedDoctor} // Ab selectedDoctor ko yahan pass karein
-          placeholder={"Find Doctor"}
-          onChange={(e) => console.log(e.target.value)} // Yahan aap doctor selection ko handle kar sakte hain
+          array={selectCategory === "All" ? doctorsData : selectedDoctor}
+          placeholder="Find Doctor"
+          onChange={(value) => setSelectedDoctor(value)}
         />
       </div>
     </div>
