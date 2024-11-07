@@ -1,6 +1,6 @@
 import MyCard from "@/components/MyCard";
 import { doctorsData } from "@/lib/content";
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 
 export default function Page() {
   const searchParams = useSearchParams();

@@ -4,22 +4,28 @@ import SelectOption from "./SelectOption";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function DoctorFinder(  ) {
+export default function DoctorFinder() {
   const [selectCategory, setSelectCategory] = useState("All");
   const [selectLocation, setSelectLocation] = useState("All");
   const [selectedDoctor, setSelectedDoctor] = useState("All");
 
   const searchParams = useSearchParams();
 
-  
-  useEffect(()=>{
-    console.log("selectCategory =>", selectCategory)
-    console.log("selectLocation =>", selectLocation)
-    console.log("selectedDoctors =>", selectedDoctor)
-  },[selectCategory, selectLocation])
+  useEffect(() => {
+    console.log("selectCategory =>", selectCategory);
+    console.log("selectLocation =>", selectLocation);
+    console.log("selectedDoctors =>", selectedDoctor);
+  }, [selectCategory, selectLocation]);
 
   const HandleCategory = (value) => {
     setSelectCategory(value);
+
+    const locations =
+      selectCategory === "All"
+        ? doctorsData.filter((data) => data.city === value)
+        : selectedDoctor.filter((data) => data.city === value);
+
+    setSelectLocation(locations);
 
     const doctors = doctorsData.filter((data) => data.category === value);
     setSelectedDoctor(doctors);
@@ -38,10 +44,12 @@ export default function DoctorFinder(  ) {
 
   const HandleLocation = (value) => {
     setSelectLocation(value);
-      
-    const doctors = selectCategory === "All" ? doctorsData.filter((data) => data.city === value): 
-      selectedDoctor.filter((data) => data.city === value)
-    
+
+    const doctors =
+      value === "All"
+        ? doctorsData.filter((data) => data.category === selectCategory)
+        : selectedDoctor.filter((data) => data.city === value);
+
     setSelectedDoctor(doctors);
 
     let uniqueCities = [...new Set(doctors.map((doctor) => doctor.city))];
@@ -54,9 +62,6 @@ export default function DoctorFinder(  ) {
     });
 
     setSelectLocation(uniqueCitiesObject);
-
-
-    
   };
 
   return (
@@ -73,16 +78,16 @@ export default function DoctorFinder(  ) {
       </div>
       <div className="w-1/4 flex justify-center items-center">
         <SelectOption
-          array={selectLocation === "All" ? cities : selectLocation}
+          array={selectCategory === "All" ? cities : selectLocation}
           placeholder="Find Location"
           onChange={HandleLocation}
         />
       </div>
       <div className="w-1/4 flex justify-center items-center">
         <SelectOption
-          array={selectCategory === "All" ? doctorsData : selectedDoctor}
+          array={selectedDoctor === "All" ? doctorsData : selectedDoctor}
           placeholder="Find Doctor"
-          onChange={(value) => setSelectedDoctor(value)}
+          onChange={(value) => console.log(value)}
         />
       </div>
     </div>
