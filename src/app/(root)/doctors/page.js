@@ -3,7 +3,7 @@ import { doctorsData } from "@/lib/content";
 // import { useSearchParams } from "next/navigation";
 
 export default function Page() {
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const searchCategory = searchParams.get(selectCategory);
   const searchLocation = searchParams.get(selectLocation);
   const searchDoctor = searchParams.get(selectedDoctor);
